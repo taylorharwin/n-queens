@@ -1,0 +1,5 @@
+To-Do Thursday:
+
+1. Work on findNRooksSolution function
+2. use new Board() for each possible solution, assuming we got all correct solutions in an array
+3. work on N-Queens

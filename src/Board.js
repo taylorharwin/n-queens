@@ -239,7 +239,6 @@
         // }
       }
       var counter = 0;
-      console.log(diagonal);
       for (var i = 0; i < diagonal.length; i++) {
         if (diagonal[i] === 1) {
           counter++;
