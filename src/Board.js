@@ -78,14 +78,49 @@
     // --------------------------------------------------------------
     //
     // test if a specific row on this board contains a conflict
-    hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
-    },
+     hasRowConflictAt: function(rowIndex) {
+      //rows() returns an array of [1,0,1]-type values
+      //check for each element in row if there is >1 "1"
+      //if so return true. Otherwise return false
 
-    // test if any rows on this board contain conflicts
-    hasAnyRowConflicts: function() {
-      return false; // fixme
-    },
+      var boardRows = this.rows();
+      console.log(boardRows);
+      var counter = 0;
+      for (var i = 0; i < boardRows[rowIndex].length; i++){
+
+        if (boardRows[rowIndex][i] === 1){
+          counter++;
+        }
+      }
+      if (counter > 1){
+        return true;
+      }
+      return false;
+     },
+
+    // // test if any rows on this board contain conflicts
+     hasAnyRowConflicts: function() {
+      //get all rows, accessible by a variable
+      //assign a counter variable to 0
+      //for each row loop over all elements in rows
+      //if counter > 1 for any row
+      //return true
+      //otherwise return false
+      var boardRow = this.rows();
+      var counter = 0;
+      for (var i = 0; i < boardRow.length; i++){
+        for (var j = 0; j < boardRow[i].length; j++){
+          if (boardRow[i][j] === 1){
+            counter++;
+          }
+        }
+        if (counter > 1){
+          return true;
+        }
+        counter = 0;
+      }
+       return false; // fixme
+     },
 
 
 
@@ -93,12 +128,46 @@
     // --------------------------------------------------------------
     //
     // test if a specific column on this board contains a conflict
+    makeColumns : function(arr){
+      var allColumns = [];
+      var singleColumns=[];
+      for(var i=0; i<arr.length; i++) {
+        for(var j=0; j<arr[i].length; j++) {
+          singleColumns.push(arr[j][i]);
+        }
+        allColumns.push(singleColumns);
+        singleColumns =[];
+      }
+      return allColumns;
+    },
+
     hasColConflictAt: function(colIndex) {
+
+      //provided a column index, identify it on board.
+      //If it has more than one "1". return true. Otherwise, return false
+      var boardRows = this.rows();
+      var counter = 0;
+      var boardColumns = this.makeColumns(boardRows);
+
+      for(var i=0; i<boardColumns[colIndex].length; i++) {
+        if(boardColumns[colIndex][i] === 1) {
+          counter++;
+        }
+      }
+      if(counter>1) {
+        return true;
+      }
       return false; // fixme
     },
 
     // test if any columns on this board contain conflicts
     hasAnyColConflicts: function() {
+      var boardColumns = this.makeColumns(this.rows());
+      for (var i = 0; i < boardColumns.length; i++){
+        if (this.hasColConflictAt(i)){
+          return true;
+        }
+      }
       return false; // fixme
     },
 
@@ -108,12 +177,73 @@
     // --------------------------------------------------------------
     //
     // test if a specific major diagonal on this board contains a conflict
+
+    // makeDiagonals: function(){
+    //   var indexes = {};
+    //   var allSums = []
+    //   var size=0;
+    //   for( var i =0; i<arr.length; i++) {
+    //     for(var j=0; j<arr.length; j++) {
+    //       indexes[size] = i+j;
+    //       size++;
+    //     }
+    //   }
+
+    // },
+
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
+      var boardRows = this.rows();
+      var col = 0;
+      var row = 0;
+      var diags = [];
+      var finalArray = [];
+      for(var i=0; i< boardRows.length; i++) {
+        diags.push(boardRows[col][row]);
+        col++;
+        row++;
+      }
+      finalArray.push(diags);
+      diags = [];
+      col = 1;
+      row = 0;
+      for(var i=0; i< boardRows.length; i++) {
+        if (this._isInBounds(col, row)) {
+          diags.push(boardRows[col][row]);
+        }
+        col++;
+        row++;
+      }
+      finalArray.push(diags);
+      diags = [];
+
+      col = 0;
+      row = 1;
+      for(var i=0; i< boardRows.length; i++) {
+        if (this._isInBounds(col, row)) {
+          diags.push(boardRows[col][row]);
+        }
+        col++;
+        row++;
+      }
+      finalArray.push(diags);
+      diags = [];
+      var counter = 0;
+      for (var i = 0; i < finalArray.length; i++){
+        for (var j = 0; j <finalArray[i].length; j++){
+          if (finalArray[i][j] === 1){
+            counter++;
+          }
+          if (counter > 1){
+            return true;
+          }
+        }
+        counter = 0;
+      }
       return false; // fixme
     },
 
@@ -129,10 +259,59 @@
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      var boardRows = this.rows();
+      var col = 0;
+      var row = 0;
+      var diags = [];
+      var finalArray = [];
+      for(var i=0; i< boardRows.length; i++) {
+        diags.push(boardRows[col][row]);
+        col++;
+        row++;
+      }
+      finalArray.push(diags);
+      diags = [];
+      col = 1;
+      row = 0;
+      for(var i=0; i< boardRows.length; i++) {
+        if (this._isInBounds(col, row)) {
+          diags.push(boardRows[col][row]);
+        }
+        col++;
+        row++;
+      }
+      finalArray.push(diags);
+      diags = [];
+
+      col = 0;
+      row = 1;
+      for(var i=0; i< boardRows.length; i++) {
+        if (this._isInBounds(col, row)) {
+          diags.push(boardRows[col][row]);
+        }
+        col++;
+        row++;
+      }
+      finalArray.push(diags);
+      diags = [];
+      var counter = 0;
+      for (var i = finalArray.length-1; i >= 0; i--){
+        for (var j = finalArray[i].length-1; j >= 0; j--){
+          if (finalArray[i][j] === 1){
+            counter++;
+          }
+          console.log(finalArray);
+          if (counter > 1){
+            return true;
+          }
+        }
+        counter = 0;
+      }
+      return false;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
+
 
 
   });
