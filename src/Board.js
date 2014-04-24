@@ -230,7 +230,7 @@
           diagonal.push(boardRows[j][boardRows[0].length-1-j]);
         }
         else if (pivot > 0) {
-          if (this._isInBounds(j, pivot + j)) {
+          if (this._isInBounds(j, pivot - j)) {
             diagonal.push(boardRows[j][pivot - j]);
           }
         }
