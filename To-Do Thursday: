@@ -1,5 +1,7 @@
 To-Do Thursday:
 
 1. Work on findNRooksSolution function
+/// n rooks cannot be implemented without creating board instance
+/// investigated the solution sets, they all return [1,1,1]'s..
 2. use new Board() for each possible solution, assuming we got all correct solutions in an array
 3. work on N-Queens
